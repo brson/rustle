@@ -38,10 +38,17 @@ which accepts the same values as [multirust].
 * https://github.com/ogham/exa. An alternative to ls.
 * https://github.com/BurntSushi/xsv. A fast CSV toolkit.
 
-# Tips
+# Multirust compatibility
 
-If you already have multirust installed then you can avoid downloading
-the nightly by setting `MULTIRUST_HOME=~/.multirust`.
+rustle uses [multirust] to acquire Rust. If it detects that multirust
+is already installed then it will use the available copy, which can
+greatly reduce installation times by reusing multirust's toolchain
+cache. If multirust is not already installed then rustle will download
+and install it to a temporary location.
 
-    curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | MULTIRUST_HOME=~/.multirust sh -s -- https://github.com/ogham/exa
-    exa
+[multirust]: https://github.com/brson/multirust
+
+* Future work
+
+* Install libraries as well
+* Deal with native dependencies

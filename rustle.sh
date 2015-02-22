@@ -63,7 +63,7 @@ without any preexisting Rust installation.
 
 It will download a number of tools to temporary locations, then use
 them to build, package and install the crate. It will *not* install
-anything other than the Cargo package.
+anything other than the crate.
 
 It will temporarily occupy at least 1 GB of disk.
 
