@@ -24,7 +24,7 @@ which will uninstall everything installed by rustle.
 
 If the project doesn't build on the current nightly, then it's
 possible to specify other revisions with the `--toolchain` flag,
-which accepts the same formats as [multirust].
+which accepts the same values as [multirust].
 
     curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota --toolchain nightly-2015-02-19
     iota
