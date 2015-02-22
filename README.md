@@ -1,4 +1,4 @@
-One-line installation of Cargo applications.
+One-line installation of [Cargo] applications.
 
 Need to show your friends that Rust application you made, but your
 friends don't Rust? That's when you need to rustle.
@@ -29,12 +29,14 @@ which accepts the same values as [multirust].
     curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota --toolchain nightly-2015-02-19
     iota
 
+[Cargo]: https://github.com/rust-lang/cargo
 [multirust]: https://github.com/brson/multirust
 
 # Projects that are likely compatible
 
 * https://github.com/gchp/iota. A text editor.
 * https://github.com/ogham/exa. An alternative to ls.
+* https://github.com/BurntSushi/xsv. A fast CSV toolkit.
 
 # Tips
 

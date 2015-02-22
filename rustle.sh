@@ -2,10 +2,6 @@
 set -u
 
 main() {
-    run "$@"
-}
-
-run() {
     if [ -z "${1-}" ]; then
 	err "provide a url"
     fi
