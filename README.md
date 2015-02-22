@@ -38,7 +38,7 @@ which accepts the same values as [multirust].
 * https://github.com/ogham/exa. An alternative to ls.
 * https://github.com/BurntSushi/xsv. A fast CSV toolkit.
 
-# Multirust compatibility
+# With the power of multirust
 
 rustle uses [multirust] to acquire Rust. If it detects that multirust
 is already installed then it will use the available copy, which can
