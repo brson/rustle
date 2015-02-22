@@ -2,13 +2,13 @@
 
 Install a Cargo package 
 
-    $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota
-    $ iota
+    $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/ogham/exa
+    $ exa
 
 or
 
-    $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/ogham/exa
-    # exa
+    $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota
+    $ iota
 
 Then to uninstall:
 
