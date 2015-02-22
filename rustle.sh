@@ -10,22 +10,35 @@ run() {
 	err "provide a url"
     fi
 
-    flag_yes=false
-    if [ "${2-}" = "-y" ]; then
-	flag_yes=true
+    local _crate_origin="$1"
+
+    local _toolchain="nightly"
+    if [ "${2-}" = "--toolchain" ]; then
+	if [ -n "${3-}" ]; then
+	    _toolchain="$3"
+	else
+	    err "provide a toolchain"
+	fi
     fi
 
-    local _crate_origin="$1"
+    flag_yes=false
+    local _arg
+    for _arg in "$@"; do
+	if [ "$_arg" = "-y" ]; then
+	    flag_yes=true
+	fi
+    done
 
     if [ ! -e "/dev/tty" ]; then
 	err "/dev/tty does not exist"
     fi
 
-    rustle_up_from "$_crate_origin"
+    rustle_up_from "$_crate_origin" "$_toolchain"
 }
 
 rustle_up_from() {
     local _crate_origin="$1"
+    local _toolchain="$2"
 
     ask_for_initial_confirmation
     create_temp_dir
@@ -35,7 +48,7 @@ rustle_up_from() {
     download_rust_installer
     install_multirust
     set_env_for_multirust
-    configure_multirust
+    configure_multirust "$_toolchain"
     build_crate
     unconfigure_multirust
     package_crate
@@ -180,10 +193,12 @@ set_env_for_multirust() {
 # This creates and removes an override so that if somebody wants to use
 # MULTIRUST_HOME it doesn't interfere with their defaults.
 configure_multirust() {
-    say "installing Rust nightly to temporary location"
+    local _toolchain="$1"
 
-    (cd "$crate_dir" && multirust override nightly)
-    need_ok "failed to download and install Rust nightly"
+    say "installing Rust $_toolchain to temporary location"
+
+    (cd "$crate_dir" && multirust override "$_toolchain")
+    need_ok "failed to download and install Rust $_toolchain"
 }
 
 unconfigure_multirust() {
