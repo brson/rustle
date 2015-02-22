@@ -70,7 +70,7 @@ without any preexisting Rust installation.
 It will download a number of tools to temporary locations, then use
 them to build, package and install the crate.
 
-It will temporarily occupy at least 700 MB of disk.
+It will temporarily occupy at least 1 GB of disk.
 
 It will prompt for your password via sudo.
 
