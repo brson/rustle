@@ -55,3 +55,4 @@ and install it to a temporary location.
 * Deal with native dependencies
 * Windows compatibility
 * Install from crates.io
+* Reduce spew
