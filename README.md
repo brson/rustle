@@ -48,7 +48,7 @@ and install it to a temporary location.
 
 [multirust]: https://github.com/brson/multirust
 
-* Future work
+# Future work
 
 * Install libraries as well
 * Deal with native dependencies
