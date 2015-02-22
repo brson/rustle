@@ -1,9 +1,9 @@
-One-line installation of [Rust] + [Cargo] applications.
+One-line installation of [Rust] applications.
 
 Need to show your friends that Rust application you made, but your
 friends don't Rust? That's when you need to rustle.
 
-If your Cargo crate produces static binaries then this script can
+If your [Cargo] crate produces static binaries then this script can
 install it in one line. It downloads the Rust nightly, builds your
 application, then packages and installs it.
 
