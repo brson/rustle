@@ -18,11 +18,19 @@ main() {
     fi
 
     flag_yes=false
+    flag_verbose=false
     local _arg
     for _arg in "$@"; do
-	if [ "$_arg" = "-y" ]; then
-	    flag_yes=true
-	fi
+	case "$_arg" in
+	    -y )
+		flag_yes=true
+		;;
+	    --verbose )
+		flag_verbose=true
+		;;
+	    * )
+		;;
+	esac
     done
 
     if [ ! -e "/dev/tty" ]; then
@@ -89,9 +97,6 @@ EOF
 
 print_final_advice() {
     say "run \`sudo /usr/local/lib/rustle/uninstall.sh\` to uninstall"
-    echo
-    echo "    Have fun."
-    echo
 }
 
 set_globals() {
@@ -117,6 +122,13 @@ download_crate() {
 download_multirust() {
     say "cloning multirust from $multirust_git"
     download_git "$multirust_git" "$multirust_dir"
+
+    # multirust needs the rust-installer submodule
+    if [ "$flag_verbose" = true ]; then
+	(cd "$multirust_dir" && git submodule init && git submodule update)
+    else
+	(cd "$multirust_dir" && git submodule init --quiet && git submodule update --quiet)
+    fi
 }
 
 download_rust_installer() {
@@ -128,12 +140,13 @@ download_git() {
     local _remote_url="$1"
     local _local_path="$2"
 
-    say "cloning $1 to $2"
-    git clone "$1" "$2" --depth 1
+    verbose_say "cloning $1 to $2"
+    if [ "$flag_verbose" = true ]; then
+	git clone "$1" "$2" --depth 1
+    else
+	git clone "$1" "$2" --depth 1 --quiet
+    fi
     need_ok "failed to clone repo $1"
-
-    (cd "$2" && git submodule update --init)
-    need_ok "failed to update submodules"
 }
 
 acquire_multirust() {
@@ -293,7 +306,7 @@ say_err() {
 }
 
 verbose_say() {
-    if [ "${VERBOSE-}" = true ]; then
+    if [ "$flag_verbose" = true ]; then
 	say "$1"
     fi
 }
