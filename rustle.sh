@@ -52,7 +52,6 @@ rustle_up_from() {
     build_crate
     unconfigure_multirust
     package_crate
-    ask_for_final_confirmation
     install_crate
     remove_temp_dir
     print_final_advice
@@ -68,12 +67,12 @@ ask_for_initial_confirmation() {
 This script will do its best to install a Rust crate on your system
 without any preexisting Rust installation.
 
-It will download a number of tools to temporary locations, use them
-to build, package and install the crate.
-
-It will prompt for your password via sudo.
+It will download a number of tools to temporary locations, then use
+them to build, package and install the crate.
 
 It will temporarily occupy at least 1 GB of disk.
+
+It will prompt for your password via sudo.
 
 *WARNING: This is very experimental and could cause serious havok.*
 
@@ -89,38 +88,6 @@ EOF
 	return 0
     else
 	say "ok, then"
-	exit 0
-    fi
-}
-
-ask_for_final_confirmation() {
-    say "preparing to install $_crate_origin"
-
-    local _yn
-    if [ "$flag_yes" != true ]; then
-	cat <<EOF
-
-OK, get serious now. Everything we've done up to this point has been
-in a temporary directory. Now we're going to 'sudo' to root and install
-something globally.
-
-You can still turn back.
-
-*WARNING: This is very experimental and could cause serious havok.*
-
-EOF
-
-	read -p "Continue? (y/n) " _yn < /dev/tty
-	echo
-    else
-	_yn=y
-    fi
-
-    if [ "$_yn" = "y" ]; then
-	return 0
-    else
-	say "ok, then"
-	remove_temp_dir
 	exit 0
     fi
 }
