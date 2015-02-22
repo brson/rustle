@@ -40,10 +40,8 @@ rustle_up_from() {
     create_temp_dir
     set_globals
     download_crate "$_crate_origin"
-    download_multirust
     download_rust_installer
-    install_multirust
-    set_env_for_multirust
+    acquire_multirust
     configure_multirust "$_toolchain"
     build_crate
     unconfigure_multirust
@@ -64,7 +62,8 @@ This script will do its best to install a Rust crate on your system
 without any preexisting Rust installation.
 
 It will download a number of tools to temporary locations, then use
-them to build, package and install the crate.
+them to build, package and install the crate. It will *not* install
+anything other than the Cargo package.
 
 It will temporarily occupy at least 1 GB of disk.
 
@@ -91,7 +90,8 @@ EOF
 print_final_advice() {
     say "run \`sudo /usr/local/lib/rustle/uninstall.sh\` to uninstall"
     echo
-    echo "Have fun."
+    echo "    Have fun."
+    echo
 }
 
 set_globals() {
@@ -101,7 +101,7 @@ set_globals() {
     rust_installer_dir="$temp_dir/rust-installer"
     crate_dir="$temp_dir/crate"
     multirust_install_dir="$temp_dir/multirust-install"
-    multirust_home="$temp_dir/multirust-home"
+    multirust_install_home="$temp_dir/multirust-home"
     crate_image="$temp_dir/image"
     installer_work_dir="$temp_dir/installer-work"
     installer_out_dir="$temp_dir/installer-out"
@@ -136,6 +136,19 @@ download_git() {
     need_ok "failed to update submodules"
 }
 
+acquire_multirust() {
+    if command -v multirust > /dev/null 2>&1 ; then
+	# A multirust command exists here, do nothing and use it
+	say "using available multirust"
+	echo "" > /dev/null
+    else
+	# There's no multirust, let's go get one
+	download_multirust
+	install_multirust
+	set_env_for_multirust
+    fi
+}
+
 install_multirust() {
     (cd "$multirust_dir" && sh ./build.sh)
     need_ok "failed to build multirust"
@@ -150,15 +163,13 @@ set_env_for_multirust() {
     export PATH="$multirust_install_dir/bin:$PATH"
     export LD_LIBRARY_PATH="$multirust_install_dir/lib:$PATH"
     export DYLD_LIBRARY_PATH="$multirust_install_dir/lib:$PATH"
-    export MULTIRUST_HOME="${MULTIRUST_HOME-$multirust_home}"
+    export MULTIRUST_HOME="${MULTIRUST_HOME-$multirust_install_home}"
 }
 
 # This creates and removes an override so that if somebody wants to use
 # MULTIRUST_HOME it doesn't interfere with their defaults.
 configure_multirust() {
     local _toolchain="$1"
-
-    say "installing Rust $_toolchain to temporary location"
 
     (cd "$crate_dir" && multirust override "$_toolchain")
     need_ok "failed to download and install Rust $_toolchain"
