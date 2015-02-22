@@ -1,24 +1,28 @@
-**DO NOT USE THIS YET. IT IS EXPERIMENTAL AND WILL DESTROY EVERYTHING YOU LOVE**
+# One-line installation of Cargo applications
 
-Install a Cargo package 
+If your Cargo package produces static binaries then this script can
+install it in one line. It downloads the Rust nightly, builds your
+application, then packages and installs it.
+
+Install a Cargo package:
 
     $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/ogham/exa
     $ exa
 
-or
-
-    $ curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota
-    $ iota
-
 Then to uninstall:
 
-    $ sudo /usr/local/lib/rustle/uninstall.sh --components=iota,exa
+    $ sudo /usr/local/lib/rustle/uninstall.sh --components=exa
 
 or more compactly:
 
     $ sudo /usr/local/lib/rustle/uninstall.sh
 
 which will uninstall everything installed by rustle.
+
+# Projects that are likely compatible
+
+* `https://github.com/gchp/iota`. A text editor.
+* `https://github.com/ogham/exa`. An improvement on ls.
 
 # Tips
 
