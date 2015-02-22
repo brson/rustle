@@ -52,3 +52,4 @@ and install it to a temporary location.
 
 * Install libraries as well
 * Deal with native dependencies
+* Windows compatibility
