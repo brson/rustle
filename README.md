@@ -1,4 +1,4 @@
-# One-line installation of Cargo applications
+One-line installation of Cargo applications.
 
 If your Cargo package produces static binaries then this script can
 install it in one line. It downloads the Rust nightly, builds your
