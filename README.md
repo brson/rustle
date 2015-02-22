@@ -1,13 +1,13 @@
-One-line installation of [Cargo] applications.
+One-line installation of [Rust] + [Cargo] applications.
 
 Need to show your friends that Rust application you made, but your
 friends don't Rust? That's when you need to rustle.
 
-If your Cargo package produces static binaries then this script can
+If your Cargo crate produces static binaries then this script can
 install it in one line. It downloads the Rust nightly, builds your
 application, then packages and installs it.
 
-Install a Cargo package:
+Install a crate:
 
     curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/ogham/exa
     exa
@@ -29,6 +29,7 @@ which accepts the same values as [multirust].
     curl -sf https://raw.githubusercontent.com/brson/rustle/master/rustle.sh | sh -s -- https://github.com/gchp/iota --toolchain nightly-2015-02-19
     iota
 
+[Rust]: http://rust-lang.org
 [Cargo]: https://github.com/rust-lang/cargo
 [multirust]: https://github.com/brson/multirust
 
@@ -53,3 +54,4 @@ and install it to a temporary location.
 * Install libraries as well
 * Deal with native dependencies
 * Windows compatibility
+* Install from crates.io
